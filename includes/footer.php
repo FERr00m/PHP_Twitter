@@ -1,5 +1,6 @@
 </main>
 </div>
+<? if (!isset($_SESSION['user']) && empty($_SESSION['user'])): ?>
 <div class="modal overlay">
     <div class="container modal__body" id="login-modal">
         <div class="modal-close">
@@ -7,12 +8,16 @@
         </div>
         <section class="wrapper">
             <h2 class="tweet-form__title">Введите логин и пароль</h2>
-            <div class="tweet-form__error">Что-то пошло не так</div>
-            <div class="tweet-form__subtitle">Если у вас нет логина, пройдите <a href="<?=getUrl('register.php')?>">регистрацию</a></div>
-            <form class="tweet-form">
+            <? if ($error):?>
+                <div class="tweet-form__error"><?=$error;?></div>
+            <?endif;?>
+            <div class="tweet-form__subtitle">Если у вас нет логина, пройдите <a href="<?=get_url('register.php')?>">регистрацию</a></div>
+
+
+            <form class="tweet-form" action="<?=get_url('includes/sign_in.php');?>" method="post">
                 <div class="tweet-form__wrapper_inputs">
-                    <input type="text" class="tweet-form__input" placeholder="Логин" required>
-                    <input type="password" class="tweet-form__input" placeholder="Пароль" required>
+                    <input type="text" class="tweet-form__input" placeholder="Логин" name="login" required>
+                    <input type="password" class="tweet-form__input" placeholder="Пароль" name="pass" required>
                 </div>
                 <div class="tweet-form__btns_center">
                     <button class="tweet-form__btn_center" type="submit">Войти</button>
@@ -21,6 +26,12 @@
         </section>
     </div>
 </div>
-<script src="<?=getUrl('js/scripts.js');?>"></script>
+<? endif;?>
+<script src="<?=get_url('js/scripts.js');?>"></script>
+<? if ($error):?>
+   <script>
+       openModal();
+   </script>
+<?endif;?>
 </body>
 </html>

@@ -7,11 +7,11 @@ if ($posts) {?>
             <li>
                 <article class="tweet">
                     <div class="row">
-                        <img class="avatar" src="<?=getUrl($post['avatar'])?>" alt="Аватар пользователя <?=$post['name']?>">
+                        <img class="avatar" src="<?=get_url($post['avatar'])?>" alt="Аватар пользователя <?=$post['name']?>">
                         <div class="tweet__wrapper">
                             <header class="tweet__header">
                                 <h3 class="tweet-author"><?=$post['name']?>
-                                    <a href="<?=getUrl('user_posts.php?id=' . $post['user_id'])?>" class="tweet-author__add tweet-author__nickname">@<?=$post['login']?></a>
+                                    <a href="<?=get_url('user_posts.php?id=' . $post['user_id'])?>" class="tweet-author__add tweet-author__nickname">@<?=$post['login']?></a>
                                     <time class="tweet-author__add tweet__date"><?=date('d.m.y в H:i', strtotime($post['date']))?></time>
                                 </h3>
                                 <button class="tweet__delete-button chest-icon"></button>
