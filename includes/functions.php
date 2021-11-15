@@ -179,3 +179,40 @@ function delete_post($id)
     $sql = "DELETE FROM `posts` WHERE `id` = $id AND `user_id` = $user_id;";
     return db_query($sql, true);
 }
+
+function get_likes_count($post_id)
+{
+    if (empty($post_id)) return 0;
+
+    $sql = "SELECT COUNT(*) FROM `likes` WHERE `post_id` = $post_id";
+    return db_query($sql)->fetchColumn();
+}
+
+function if_post_liked($post_id)
+{
+    $user_id = $_SESSION['user']['id'];
+    if (empty($post_id)) return false;
+
+    $sql = "SELECT * FROM `likes` WHERE `post_id` = $post_id AND `user_id` = $user_id;";
+    return db_query($sql)->rowCount() > 0;
+}
+
+function add_like($post_id)
+{
+    $user_id = $_SESSION['user']['id'];
+    if (empty($post_id)) return false;
+
+    $sql = "INSERT INTO `likes` (`post_id`, `user_id`) VALUES ($post_id, $user_id);";
+    return db_query($sql, true);
+}
+
+function delete_like($post_id)
+{
+    if (!is_numeric($post_id)) {
+        $_SESSION['error'] = 'В id не число!';
+        redirect(get_url('user_posts.php'));
+    }
+    $user_id = $_SESSION['user']['id'];
+    $sql = "DELETE FROM `likes` WHERE `post_id` = $post_id AND `user_id` = $user_id;";
+    return db_query($sql, true);
+}
