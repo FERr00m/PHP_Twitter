@@ -21,7 +21,7 @@ include_once 'functions.php';
                     <a href="<?=get_url();?>" class="header__link header__link_main"></a>
                 </li>
                 <li>
-                    <? if (isset($_SESSION['user']['id'])):?>
+                    <? if (is_logged()):?>
                         <a href="<?=get_url('includes/logout.php')?>" class="header__link header__link_exit" title="Выйти"></a>
                     <?else:?>
                         <button class="header__link header__link_profile_fill" title="Авторизоваться"></button>
@@ -34,8 +34,11 @@ include_once 'functions.php';
         <section class="wrapper">
             <div class="main-header">
                 <a href="<?=get_url();?>" class="header__link header__link_home" title="Лента"></a>
-                <a href="<?=get_url('user_posts.php');?>" class="header__link header__link_profile" title="Твиты пользователя"></a>
-                <a href="#" class="header__link header__link_likes" title="Понравившиеся твиты"></a>
-                <a href="#" class="header__link header__link_sort" title="Сортировать"></a>
+                <? if (is_logged()):?>
+                    <a href="<?=get_url('user_posts.php');?>" class="header__link header__link_profile" title="Твиты пользователя"></a>
+                    <a href="#" class="header__link header__link_likes" title="Понравившиеся твиты"></a>
+                <?endif;?>
+                <a href="<?=get_url('sorted.php');?>" class="header__link header__link_sort" title="Сортировать"></a>
             </div>
         </section>
+

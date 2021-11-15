@@ -14,7 +14,9 @@ if ($posts) {?>
                                     <a href="<?=get_url('user_posts.php?id=' . $post['user_id'])?>" class="tweet-author__add tweet-author__nickname">@<?=$post['login']?></a>
                                     <time class="tweet-author__add tweet__date"><?=date('d.m.y в H:i', strtotime($post['date']))?></time>
                                 </h3>
-                                <button class="tweet__delete-button chest-icon"></button>
+                                <? if (is_logged() && $post['user_id'] === $_SESSION['user']['id']): ?>
+                                    <a href="<?=get_url('includes/delete_post.php?id=' . $post['id'])?>" class="tweet__delete-button chest-icon"></a>
+                                <? endif;?>
                             </header>
                             <div class="tweet-post">
                                 <p class="tweet-post__text"><?=$post['text']?></p>

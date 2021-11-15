@@ -13,12 +13,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
 $posts = get_posts($id);
 
-$title = 'Твиты пользователя';
-if (empty($posts)) {
+$title = 'Твиты пользователя ' . '@' . $_SESSION['user']['login'];
+if (!empty($posts)) {
     $title = 'Твиты пользователя @' . $posts[0]['login'];
 }
 
 include_once 'includes/header.php';
+if (is_logged()) {
+    include_once 'includes/tweet_form.php';
+}
 include_once 'includes/posts.php';
 include_once 'includes/footer.php';
 
